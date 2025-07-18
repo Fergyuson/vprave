@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a3fe10f9-d9f1-48a1-9eba-5a627740867c" name="Changes" comment="Добавили ботфактор" />
+    <list default="true" id="a3fe10f9-d9f1-48a1-9eba-5a627740867c" name="Changes" comment="Иниуиализировали проект" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -110,7 +110,7 @@
       <workItem from="1751106635808" duration="821000" />
       <workItem from="1752667957107" duration="1988000" />
       <workItem from="1752781258032" duration="5156000" />
-      <workItem from="1752833902574" duration="6438000" />
+      <workItem from="1752833902574" duration="6742000" />
     </task>
     <task id="LOCAL-00001" summary="Добавили раздел с отзывами клиентов">
       <option name="closed" value="true" />
@@ -288,7 +288,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751107426795</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Иниуиализировали проект">
+      <option name="closed" value="true" />
+      <created>1752844759389</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1752844759389</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -327,6 +335,7 @@
     <MESSAGE value="картинка на фон" />
     <MESSAGE value="поменяли номер телефона под формой" />
     <MESSAGE value="Добавили ботфактор" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавили ботфактор" />
+    <MESSAGE value="Иниуиализировали проект" />
+    <option name="LAST_COMMIT_MESSAGE" value="Иниуиализировали проект" />
   </component>
 </project>
