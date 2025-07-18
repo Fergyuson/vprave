@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a3fe10f9-d9f1-48a1-9eba-5a627740867c" name="Changes" comment="Добавили ботфактор" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="Vue Composition API Component" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Fergyuson&quot;
+  }
+}</component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="99baad69-c37e-4557-a927-4b3beb325486" />
+  </component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Fergyuson/uksolution.git&quot;,
+    &quot;accountId&quot;: &quot;6388783e-6e44-44de-878e-339da23812ec&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2xm56eN29sTHPAXSKgOfhc0OqXr" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/magic/WebstormProjects/vprave&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\magic\\AppData\\Local\\Programs\\WebStorm\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;repository&quot;
+    ],
+    &quot;vue.recent.templates&quot;: [
+      &quot;Vue Composition API Component&quot;
+    ]
+  }
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-WS-251.25410.117" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a3fe10f9-d9f1-48a1-9eba-5a627740867c" name="Changes" comment="" />
+      <created>1748530234950</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1748530234950</updated>
+      <workItem from="1748530235986" duration="883000" />
+      <workItem from="1748599752189" duration="5723000" />
+      <workItem from="1748624515340" duration="8612000" />
+      <workItem from="1748855219314" duration="1184000" />
+      <workItem from="1748863143922" duration="6780000" />
+      <workItem from="1748876255869" duration="3571000" />
+      <workItem from="1748936936470" duration="15069000" />
+      <workItem from="1748983493396" duration="5030000" />
+      <workItem from="1748988577243" duration="1000" />
+      <workItem from="1749130223074" duration="163000" />
+      <workItem from="1749131240124" duration="40000" />
+      <workItem from="1749219352276" duration="3314000" />
+      <workItem from="1749227688756" duration="611000" />
+      <workItem from="1749463502285" duration="4943000" />
+      <workItem from="1749634119059" duration="3539000" />
+      <workItem from="1749849877997" duration="292000" />
+      <workItem from="1750077124155" duration="878000" />
+      <workItem from="1750155420270" duration="616000" />
+      <workItem from="1750325240121" duration="4443000" />
+      <workItem from="1750419173984" duration="3044000" />
+      <workItem from="1750838668282" duration="253000" />
+      <workItem from="1751106635808" duration="821000" />
+      <workItem from="1752667957107" duration="1988000" />
+      <workItem from="1752781258032" duration="5156000" />
+      <workItem from="1752833902574" duration="6438000" />
+    </task>
+    <task id="LOCAL-00001" summary="Добавили раздел с отзывами клиентов">
+      <option name="closed" value="true" />
+      <created>1748633708013</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1748633708013</updated>
+    </task>
+    <task id="LOCAL-00002" summary="добавили метрику">
+      <option name="closed" value="true" />
+      <created>1748856328492</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1748856328492</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Добавили страницу перехода после отправки формы">
+      <option name="closed" value="true" />
+      <created>1748874936247</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1748874936247</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Добавили картинки, обновили packege.json">
+      <option name="closed" value="true" />
+      <created>1748876540895</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1748876540895</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Изменили вторую страницу, исправили работу свайпера, сделали кнопку слайд плавной">
+      <option name="closed" value="true" />
+      <created>1748879866565</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1748879866565</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Добавили счётчик метрики">
+      <option name="closed" value="true" />
+      <created>1748939669865</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1748939669865</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Поправили форму отправки кончультации">
+      <option name="closed" value="true" />
+      <created>1748940852357</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1748940852357</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Добавили документы к отзывам">
+      <option name="closed" value="true" />
+      <created>1748941207314</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1748941207314</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Добавили логотипы, сделали вторую страницу динамичной">
+      <option name="closed" value="true" />
+      <created>1748988472355</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1748988472355</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Поменяли фоновое изображение">
+      <option name="closed" value="true" />
+      <created>1749130381243</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1749130381243</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Добавили страницу политики конфиденциальности">
+      <option name="closed" value="true" />
+      <created>1749222562080</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1749222562080</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Изменили название организации в политике конфиденциальности">
+      <option name="closed" value="true" />
+      <created>1749228094042</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1749228094042</updated>
+    </task>
+    <task id="LOCAL-00013" summary="поправили кофликт вебвизора в метриках">
+      <option name="closed" value="true" />
+      <created>1749464790506</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1749464790506</updated>
+    </task>
+    <task id="LOCAL-00014" summary="поправили кофликт вебвизора в метриках">
+      <option name="closed" value="true" />
+      <created>1749467533646</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1749467533646</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Изменили цели в метриках при отправке формы">
+      <option name="closed" value="true" />
+      <created>1749470812283</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1749470812283</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Поправили футер">
+      <option name="closed" value="true" />
+      <created>1749635813523</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1749635813523</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Поменяли название файла">
+      <option name="closed" value="true" />
+      <created>1749637612279</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1749637612279</updated>
+    </task>
+    <task id="LOCAL-00018" summary="добавили required форме консультации и проверку на формат номера при вводе">
+      <option name="closed" value="true" />
+      <created>1750328125931</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1750328125931</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Поменяли фон,изменили текст, добавили текст про передачу данных">
+      <option name="closed" value="true" />
+      <created>1750420958200</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1750420958200</updated>
+    </task>
+    <task id="LOCAL-00020" summary="картинка на фон">
+      <option name="closed" value="true" />
+      <created>1750421618649</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1750421618649</updated>
+    </task>
+    <task id="LOCAL-00021" summary="поменяли номер телефона под формой">
+      <option name="closed" value="true" />
+      <created>1750838909062</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1750838909062</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Добавили ботфактор">
+      <option name="closed" value="true" />
+      <created>1751107426795</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1751107426795</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Добавили раздел с отзывами клиентов" />
+    <MESSAGE value="добавили метрику" />
+    <MESSAGE value="Добавили страницу перехода после отправки формы" />
+    <MESSAGE value="Добавили картинки, обновили packege.json" />
+    <MESSAGE value="Изменили вторую страницу, исправили работу свайпера, сделали кнопку слайд плавной" />
+    <MESSAGE value="Добавили счётчик метрики" />
+    <MESSAGE value="Поправили форму отправки кончультации" />
+    <MESSAGE value="Добавили документы к отзывам" />
+    <MESSAGE value="Добавили логотипы, сделали вторую страницу динамичной" />
+    <MESSAGE value="Поменяли фоновое изображение" />
+    <MESSAGE value="Добавили страницу политики конфиденциальности" />
+    <MESSAGE value="Изменили название организации в политике конфиденциальности" />
+    <MESSAGE value="поправили кофликт вебвизора в метриках" />
+    <MESSAGE value="Изменили цели в метриках при отправке формы" />
+    <MESSAGE value="Поправили футер" />
+    <MESSAGE value="Поменяли название файла" />
+    <MESSAGE value="добавили required форме консультации и проверку на формат номера при вводе" />
+    <MESSAGE value="Поменяли фон,изменили текст, добавили текст про передачу данных" />
+    <MESSAGE value="картинка на фон" />
+    <MESSAGE value="поменяли номер телефона под формой" />
+    <MESSAGE value="Добавили ботфактор" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавили ботфактор" />
+  </component>
+</project>
