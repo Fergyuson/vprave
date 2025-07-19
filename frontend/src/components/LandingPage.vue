@@ -165,7 +165,7 @@
         </div>
         <span class="span-on-footer">
           <p class="cli-block-description">
-            После заполнения анкеты мы позвоним с номера +7 411 224-30-67  и предоставим бесплатную инструкцию, как поступить в вашей ситуации.
+            После заполнения анкеты мы позвоним с номера +7 966 666-46-85  и предоставим бесплатную инструкцию, как поступить в вашей ситуации.
           </p>
         </span>
       </div>
@@ -600,7 +600,7 @@ body {
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
-  height: 165px;
+  height: auto;
   gap: 1rem;
   padding: var(--container-padding);
 }
@@ -1165,11 +1165,11 @@ body {
 @media (max-width: 768px) {
   .topnew {
     flex-direction: column;
-    gap: 1rem;
-    text-align: center;
+    justify-content: center;
+    align-items: center;
   }
-  .topnew .zakазpopup {
-    order: -1;
+  .topnew .zakazpopup {
+    margin-bottom: 1rem;
   }
   .container-text {
     grid-template-columns: 1fr;
