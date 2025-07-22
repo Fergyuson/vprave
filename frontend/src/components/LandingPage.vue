@@ -75,7 +75,7 @@
             Заполните анкету и получите решение
           </div>
         </div>
-        <form @submit.prevent="onSubmit" class="cli-form">
+        <form @submit.prevent="submitForm" class="cli-form">
           <fieldset class="cli-form__fieldset">
             <legend>Какие у Вас долги?</legend>
             <label v-for="opt in quiz1" :key="opt.value">
@@ -83,7 +83,7 @@
                   type="checkbox"
                   :value="opt.value"
                   v-model="form.quiz1"
-                  @change="clickQuiz"
+                  @change="selectQuiz1(opt.value)"
               />
               {{ opt.label }}
             </label>
@@ -385,6 +385,38 @@ const utpItems = [
 ];
 const craftumSvg = `<svg width="20" height="20" viewBox="0 0 20 20"><!-- … --></svg>`;
 
+function selectQuiz1(value) {
+  if (window.ym) {
+    window.ym(103405057, 'reachGoal', 'first_click', { option: value });
+  }
+}
+
+async function submitForm() {
+  // ✓ валидация телефона
+  if (!phoneNumber.value || !/^\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}$/.test(phoneNumber.value)) {
+    alert('Введите корректный телефон');
+    return;
+  }
+
+  // ✓ блокируем повторную отправку
+  if (document.cookie.includes('sendForm=true')) {
+    alreadySent.value = true;
+    return;
+  }
+
+  try {
+    await window.sendLeadToBitrix('', phoneNumber.value);
+  } catch (err) {
+    console.error('Bitrix24 error:', err);
+    // можно показать уведомление, но редирект пусть всё‑таки произойдёт
+  } finally {
+    window.ym && ym(103405057, 'reachGoal', 'send_quiz');
+    document.cookie = 'sendForm=true;max-age=' + 60*60*24*180 + ';path=/';
+    router.push({ name: 'Result' });          // или router.push('/result')
+  }
+}
+
+
 // Yandex.Metrika goals
 function clickQuiz() {
   if (!clickQuiz.done && window.ym) {
@@ -399,67 +431,6 @@ function clickPhone() {
   }
 }
 
-// Submission guards
-const showNotEnough = ref(false);
-const alreadySent   = ref(false);
-
-// "Получить решение"
-function onSubmit() {
-  if (form.quiz3 === 'Менее 300 т.р.') {
-    showNotEnough.value = true;
-    return;
-  }
-  showNotEnough.value = false;
-
-  if (!phoneNumber.value) {
-    alert('Пожалуйста, введите номер телефона.');
-    return;
-  }
-  const re = /^\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}$/;
-  if (!re.test(phoneNumber.value)) {
-    return;
-  }
-  if (document.cookie.includes('sendForm=true')) {
-    alreadySent.value = true;
-    return;
-  }
-
-  // Build original payload
-  const data = new FormData();
-  Object.entries(form).forEach(([k, v]) => data.append(k, v));
-  data.append('phone', phoneNumber.value);
-  Object.entries(utm).forEach(([k, v]) => data.append(`utm_${k}`, v));
-
-  fetch('/api/send/', {
-     method: 'POST',
-     credentials: 'include',
-     body: data
-     })
-       .then(() => {
-       window.ym && ym(102334874, 'reachGoal', 'send_quiz');
-       document.cookie = 'sendForm=true;max-age=' + (3600 * 24 * 180) + ';path=/';
-
-      // ALSO send to external endpoint
-      const ext = new FormData();
-      ext.append('quiz1', form.quiz1.join(','));
-      ext.append('quiz2', form.quiz2);
-      ext.append('quiz3', form.quiz3);
-      ext.append('phone', phoneNumber.value);
-      Object.entries(utm).forEach(([k, v]) => ext.append(`utm_${k}`, v));
-      fetch('https://vashurist-it.ru/uksolution/uksolution.php', {
-          method: 'POST',
-          credentials: 'include',
-          body: ext
-           })
-        .catch(err => console.error('Error sending to vprave:', err));
-
-      router.push({ name: 'Result' });
-    })
-    .catch(err => {
-      console.error('Ошибка при отправке формы:', err);
-    });
-}
-
 // Smooth scroll
 function scrollToForm() {
   document.getElementById('quiz-form')?.scrollIntoView({ behavior: 'smooth' });
@@ -472,7 +443,7 @@ function closeConsultation() {
 
 // "Отправить и получить инструкцию"
 function onSubmitConsult() {
-  window.ym && ym(111111111, 'reachGoal', 'send_form');
+  window.ym && ym(103405057, 'reachGoal', 'send_form');
 
   if (document.cookie.includes('consultSent=true')) {
     showAlreadySentModal.value = true;
@@ -482,84 +453,52 @@ function onSubmitConsult() {
   const data = new FormData();
   data.append('phone', consultPhone.value);
 
-  fetch('/api/send/', {
-         method: 'POST',
-         credentials: 'include',
-         body: data
-         })
-    .then(() => {
-      document.cookie = 'consultSent=true;max-age=' + (3600 * 24 * 180) + ';path=/';
-      showAlreadySentModal.value = true;
-
-      // ALSO send to external endpoint
-      const ext = new FormData();
-      ext.append('quiz1', form.quiz1.join(','));
-      ext.append('quiz2', form.quiz2);
-      ext.append('quiz3', form.quiz3);
-      ext.append('phone', consultPhone.value);
-      Object.entries(utm).forEach(([k, v]) => ext.append(`utm_${k}`, v));
-      fetch('https://vashurist-it.ru/uksolution/uksolution.php', {
-            method: 'POST',
-            credentials: 'include',
-            body: ext
-            })
-        .catch(err => console.error('Error sending consult to uksolution:', err));
-    })
-    .catch(err => {
-      console.error('Ошибка при отправке запроса на консультацию:', err);
-    });
-}
-
 // Client reviews
-const reviews = ref([
-  {
-    avatar: '/img/VictorDolg.jpg',
-    name: 'Машукова Ирина Александровна',
-    date: '20 апреля 2024',
-    text: 'Сумма долга: 1 016 868 руб.',
-    // docLink: '/docs/Victor.pdf',
-  }, 
-  {
-    avatar: '/img/Aleksandr.jpg',
-    name: 'Еникеев Александр Александрович',
-    date: '15 мая 2025',
-    text: 'Сумма долга: 349 407 руб.',
-    // docLink: '/docs/Aleksandr.pdf',
-  },
-  {
-    avatar: '/img/Vladimir.jpg',
-    name: 'Барашков Валентин Савин',
-    date: '10 июня 2023',
-    text: 'Сумма долга: 1 565 017 руб.',
-    // docLink: '/docs/Vladimir.pdf',
-  },
-  {
-    avatar: '/img/Nadezhda.jpg',
-    name: 'Шадрина Анна Ивановна',
-    date: '20 марта 2024',
-    text: 'Сумма долга: 666 506 руб.',
-    // docLink: '/docs/Nadezhda.pdf',
-  },
-  {
-    avatar: '/img/Natalia.jpg',
-    name: 'Сягина Наталья Витальевна',
-    date: '15 мая 2022',
-    text: 'Сумма долга: 2 301 493 руб.',
-    // docLink: '/docs/Natalia.pdf',
-  },
-  {
-    avatar: '/img/Drit-ian.jpg',
-    name: 'Малов Дмитрий Вячеславович',
-    date: '10 мая 2025',
-    text: 'Сумма долга: 5 632 460 руб.',
-   // docLink: '/docs/Ian.pdf',
-  }, 
-]);
-
-// Ensure UTM again if needed
-['source','medium','campaign','content','term'].forEach(k => {
-  utm[k] = getParam(`utm_${k}`);
-});
+  const reviews = ref([
+    {
+      avatar: '/img/VictorDolg.jpg',
+      name: 'Машукова Ирина Александровна',
+      date: '20 апреля 2024',
+      text: 'Сумма долга: 1 016 868 руб.',
+      // docLink: '/docs/Victor.pdf',
+    },
+    {
+      avatar: '/img/Aleksandr.jpg',
+      name: 'Еникеев Александр Александрович',
+      date: '15 мая 2025',
+      text: 'Сумма долга: 349 407 руб.',
+      // docLink: '/docs/Aleksandr.pdf',
+    },
+    {
+      avatar: '/img/Vladimir.jpg',
+      name: 'Барашков Валентин Савин',
+      date: '10 июня 2023',
+      text: 'Сумма долга: 1 565 017 руб.',
+      // docLink: '/docs/Vladimir.pdf',
+    },
+    {
+      avatar: '/img/Nadezhda.jpg',
+      name: 'Шадрина Анна Ивановна',
+      date: '20 марта 2024',
+      text: 'Сумма долга: 666 506 руб.',
+      // docLink: '/docs/Nadezhda.pdf',
+    },
+    {
+      avatar: '/img/Natalia.jpg',
+      name: 'Сягина Наталья Витальевна',
+      date: '15 мая 2022',
+      text: 'Сумма долга: 2 301 493 руб.',
+      // docLink: '/docs/Natalia.pdf',
+    },
+    {
+      avatar: '/img/Drit-ian.jpg',
+      name: 'Малов Дмитрий Вячеславович',
+      date: '10 мая 2025',
+      text: 'Сумма долга: 5 632 460 руб.',
+      // docLink: '/docs/Ian.pdf',
+    },
+  ]);
+}
 </script>
 
 <style scoped>

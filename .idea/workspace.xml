@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a3fe10f9-d9f1-48a1-9eba-5a627740867c" name="Changes" comment="Иниуиализировали проект">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+    <list default="true" id="a3fe10f9-d9f1-48a1-9eba-5a627740867c" name="Changes" comment="поправили расположение кнопки консультации, поменяли данные в политике">
+      <change afterPath="$PROJECT_DIR$/frontend/public/bitrix_integration.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/LandingPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/LandingPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/privacy-policy.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/privacy-policy.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +18,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="Vue Composition API Component" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -77,6 +77,11 @@
     ]
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\magic\WebstormProjects\vprave\frontend\src\components" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -117,7 +122,10 @@
       <workItem from="1752781258032" duration="5156000" />
       <workItem from="1752833902574" duration="9227000" />
       <workItem from="1752872447926" duration="3000" />
-      <workItem from="1752919967394" duration="1540000" />
+      <workItem from="1752919967394" duration="3774000" />
+      <workItem from="1753104476874" duration="6186000" />
+      <workItem from="1753130759750" duration="1244000" />
+      <workItem from="1753135052838" duration="3345000" />
     </task>
     <task id="LOCAL-00001" summary="Добавили раздел с отзывами клиентов">
       <option name="closed" value="true" />
@@ -311,7 +319,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752845072634</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="поправили расположение кнопки консультации, поменяли данные в политике">
+      <option name="closed" value="true" />
+      <created>1752921756385</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1752921756385</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -351,6 +367,7 @@
     <MESSAGE value="поменяли номер телефона под формой" />
     <MESSAGE value="Добавили ботфактор" />
     <MESSAGE value="Иниуиализировали проект" />
-    <option name="LAST_COMMIT_MESSAGE" value="Иниуиализировали проект" />
+    <MESSAGE value="поправили расположение кнопки консультации, поменяли данные в политике" />
+    <option name="LAST_COMMIT_MESSAGE" value="поправили расположение кнопки консультации, поменяли данные в политике" />
   </component>
 </project>
