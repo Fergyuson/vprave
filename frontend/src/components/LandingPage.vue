@@ -9,7 +9,7 @@
             <a href="/">
               <img src="/img/logo_norm.png" alt="Новый логотип" />
             </a>
-          </div>
+         </div>
           <div class="zakazpopup">
             <a
                 href="#"
