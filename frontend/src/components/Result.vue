@@ -21,7 +21,7 @@
       </p>
       <p class="contact-phone">
         Телефон для срочной связи:
-        <a class="phone-link" href="tel:+74954316699">8 (495) 431-66-99</a>
+        <a class="phone-link" href="tel:+79666664685">8 (966) 666-46-85</a>
       </p>
       <router-link class="back-link" to="/">Вернуться на главную</router-link>
     </div>
