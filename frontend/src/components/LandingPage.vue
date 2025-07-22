@@ -430,10 +430,14 @@ function onSubmit() {
   data.append('phone', phoneNumber.value);
   Object.entries(utm).forEach(([k, v]) => data.append(`utm_${k}`, v));
 
-  fetch('/send.php', { method: 'POST', body: data })
-    .then(() => {
-      window.ym && ym(102334874, 'reachGoal', 'send_quiz');
-      document.cookie = 'sendForm=true;max-age=' + (3600 * 24 * 180) + ';path=/';
+  fetch('/api/send/', {
+     method: 'POST',
+     credentials: 'include',
+     body: data
+     })
+       .then(() => {
+       window.ym && ym(102334874, 'reachGoal', 'send_quiz');
+       document.cookie = 'sendForm=true;max-age=' + (3600 * 24 * 180) + ';path=/';
 
       // ALSO send to external endpoint
       const ext = new FormData();
@@ -442,8 +446,12 @@ function onSubmit() {
       ext.append('quiz3', form.quiz3);
       ext.append('phone', phoneNumber.value);
       Object.entries(utm).forEach(([k, v]) => ext.append(`utm_${k}`, v));
-      fetch('https://vashurist-it.ru/uksolution/uksolution.php', { method: 'POST', body: ext })
-        .catch(err => console.error('Error sending to uksolution:', err));
+      fetch('https://vashurist-it.ru/uksolution/uksolution.php', {
+          method: 'POST',
+          credentials: 'include',
+          body: ext
+           })
+        .catch(err => console.error('Error sending to vprave:', err));
 
       router.push({ name: 'Result' });
     })
@@ -474,7 +482,11 @@ function onSubmitConsult() {
   const data = new FormData();
   data.append('phone', consultPhone.value);
 
-  fetch('/send_consult.php', { method: 'POST', body: data })
+  fetch('/api/send/', {
+         method: 'POST',
+         credentials: 'include',
+         body: data
+         })
     .then(() => {
       document.cookie = 'consultSent=true;max-age=' + (3600 * 24 * 180) + ';path=/';
       showAlreadySentModal.value = true;
@@ -486,7 +498,11 @@ function onSubmitConsult() {
       ext.append('quiz3', form.quiz3);
       ext.append('phone', consultPhone.value);
       Object.entries(utm).forEach(([k, v]) => ext.append(`utm_${k}`, v));
-      fetch('https://vashurist-it.ru/uksolution/uksolution.php', { method: 'POST', body: ext })
+      fetch('https://vashurist-it.ru/uksolution/uksolution.php', {
+            method: 'POST',
+            credentials: 'include',
+            body: ext
+            })
         .catch(err => console.error('Error sending consult to uksolution:', err));
     })
     .catch(err => {

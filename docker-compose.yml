@@ -1,0 +1,10 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "4014"]
+    ports:
+      - "4014:4014"
+    restart: always
+

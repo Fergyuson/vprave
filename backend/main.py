@@ -33,6 +33,26 @@ app = FastAPI(
 )
 
 # ────────────────────────────────────────
+# Middleware для установки UTM‑меток в cookie
+# ────────────────────────────────────────
+@app.middleware("http")
+async def utm_cookie_middleware(request: Request, call_next):
+    response = await call_next(request)
+    for param in ("utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"):
+        val = request.query_params.get(param)
+        if val:
+            response.set_cookie(
+                key=param,
+                value=val,
+                max_age=30 * 24 * 3600,  # 30 дней
+                httponly=True,           # защита от JS, можете убрать флаг при необходимости
+                secure=True,
+                samesite="lax",
+                path="/",
+            )
+    return response
+
+# ────────────────────────────────────────
 # Middleware для settings и CORS
 # ────────────────────────────────────────
 class SettingsMiddleware(BaseHTTPMiddleware):
@@ -44,12 +64,13 @@ app.add_middleware(SettingsMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://списать-долги-удаленно.рф",
-        "https://www.списать-долги-удаленно.рф",
+        "https://списание-долгов-вправе.рф",
+        "https://www.списание-долгов-вправе.рф",
     ],
     allow_methods=["*"],
     allow_headers=["*"],
     expose_headers=["Set-Cookie"],
+    allow_credentials=True,
     max_age=3600,
 )
 
