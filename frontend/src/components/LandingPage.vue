@@ -176,11 +176,11 @@
       <h2 class="reviews-title">Отзывы наших клиентов</h2>
 
       <Swiper
-          :modules="[Pagination, Autoplay]"
+          :modules="swiperModules"
           :slides-per-view="1"
           :space-between="0"
-          pagination
-          loop
+          :pagination="{ clickable: true }"
+          :loop="true"
           :autoplay="{ delay: 3000, disableOnInteraction: false }"
           class="reviews-swiper"
       >
@@ -218,20 +218,14 @@
         <div class="cli-footer-logo">
           <img src="/img/logoF.png" alt="Новый логотип" />
         </div>
-<!--         <div class="cli-footer-logo__text">
-        <strong>{{ site.name }}</strong><br />
-        {{ site.ip }}<br /><br /><br />
-        <a :href="`tel:${site.phoneInt}`" @click="clickPhone">{{ site.phone }}</a><br />
-        <a :href="`tel:${site.phone2Int}`" @click="clickPhone">{{ site.phone2 }}</a>
-      </div>-->
-      <div class="footer_r">
-        <strong>{{ site.name }}</strong><br />
-        Адрес:<br />
-        {{ site.addr }}<br /><br />
-        {{ site.inn }}<br />
-        {{ site.ogrn }}<br /><br /><br />
-        <a :href="`tel:${site.phoneInt}`" @click="clickPhone">{{ site.phone }}</a><br />
-      </div>
+        <div class="footer_r">
+          <strong>{{ site.name }}</strong><br />
+          Адрес:<br />
+          {{ site.addr }}<br /><br />
+          {{ site.inn }}<br />
+          {{ site.ogrn }}<br /><br /><br />
+          <a :href="`tel:${site.phoneInt}`" @click="clickPhone">{{ site.phone }}</a><br />
+        </div>
       </div>
     </footer>
     <div class="Privacy-Policy">
@@ -248,7 +242,7 @@
       <div class="modal-window">
         <button class="modal-close" @click="alreadySent = false">×</button>
         <div class="sendFormPopupBody">
-          <h1>Вы уже оставили заявку.<br /><span>Скоро свяжемся  вами.</span></h1>
+          <h1>Вы уже оставили заявку.<br /><span>Скоро свяжемся с вами.</span></h1>
         </div>
       </div>
     </div>
@@ -319,6 +313,50 @@ import 'swiper/css/pagination';
 
 const router = useRouter();
 const showAlreadySentModal = ref(false);
+const alreadySent = ref(false); // ДОБАВЛЕНО: отсутствовало в коде
+
+// Swiper modules - ДОБАВЛЕНО: отсутствовало в коде
+const swiperModules = [Pagination, Autoplay];
+
+// Client reviews - ИСПРАВЛЕНО: вынесено из функции
+const reviews = ref([
+  {
+    avatar: '/img/VictorDolg.jpg',
+    name: 'Машукова Ирина Александровна',
+    date: '20 апреля 2024',
+    text: 'Сумма долга: 1 016 868 руб.',
+  },
+  {
+    avatar: '/img/Aleksandr.jpg',
+    name: 'Еникеев Александр Александрович',
+    date: '15 мая 2025',
+    text: 'Сумма долга: 349 407 руб.',
+  },
+  {
+    avatar: '/img/Vladimir.jpg',
+    name: 'Барашков Валентин Савин',
+    date: '10 июня 2023',
+    text: 'Сумма долга: 1 565 017 руб.',
+  },
+  {
+    avatar: '/img/Nadezhda.jpg',
+    name: 'Шадрина Анна Ивановна',
+    date: '20 марта 2024',
+    text: 'Сумма долга: 666 506 руб.',
+  },
+  {
+    avatar: '/img/Natalia.jpg',
+    name: 'Сягина Наталья Витальевна',
+    date: '15 мая 2022',
+    text: 'Сумма долга: 2 301 493 руб.',
+  },
+  {
+    avatar: '/img/Drit-ian.jpg',
+    name: 'Малов Дмитрий Вячеславович',
+    date: '10 мая 2025',
+    text: 'Сумма долга: 5 632 460 руб.',
+  },
+]);
 
 // UTM parameters
 const utm = reactive({
@@ -328,6 +366,7 @@ const utm = reactive({
   content: '',
   term: ''
 });
+
 function getParam(name) {
   const p = new URLSearchParams(location.search).get(name);
   if (p) {
@@ -335,6 +374,7 @@ function getParam(name) {
   }
   return decodeURIComponent((document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`)) || [])[2] || '');
 }
+
 onMounted(() => {
   ['source','medium','campaign','content','term'].forEach(k => {
     utm[k] = getParam(`utm_${k}`) || '';
@@ -365,17 +405,18 @@ const form = reactive({
   quiz3: 'Более 300 т.р.',
   phone: ''
 });
-const phoneNumber     = ref('');
+const phoneNumber = ref('');
 const showConsultation = ref(false);
-const consultPhone     = ref('');
+const consultPhone = ref('');
 
 // Site info etc.
 const site = {
-  name:      'ООО «Я ВПРАВЕ»',
-  phoneInt:  '83952716094', phone: '+7 966 666-46-85',
-  addr:      'г Москва, ул Б.Бронная, д. 23, стр. 1',
-  inn:       'ИНН 7716813497',
-  ogrn:      'КПП: 77301001'
+  name: 'ООО «Я ВПРАВЕ»',
+  phoneInt: '83952716094',
+  phone: '+7 966 666-46-85',
+  addr: 'г Москва, ул Б.Бронная, д. 23, стр. 1',
+  inn: 'ИНН 7716813497',
+  ogrn: 'КПП: 77301001'
 };
 const utpItems = [
   { img: '/img/cards.svg',     text: 'По кредитам' },
@@ -392,31 +433,29 @@ function selectQuiz1(value) {
 }
 
 async function submitForm() {
-  // ✓ валидация телефона
+  // валидация телефона
   if (!phoneNumber.value || !/^\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}$/.test(phoneNumber.value)) {
     alert('Введите корректный телефон');
     return;
   }
 
-  // ✓ блокируем повторную отправку
+  // блокируем повторную отправку
   if (document.cookie.includes('sendForm=true')) {
     alreadySent.value = true;
     return;
   }
 
-  // === отправка лида и редирект ===
+  // отправка лида и редирект
   try {
     await window.sendLeadToBitrix('', phoneNumber.value);
   } catch (err) {
     console.error('Bitrix24 error:', err);
-    // можно показать уведомление, но редирект пусть всё‑таки произойдёт
   } finally {
-    window.ym && ym(103405057, 'reachGoal', 'send_quiz');
+    window.ym && window.ym(103405057, 'reachGoal', 'send_quiz');
     document.cookie = 'sendForm=true;max-age=' + 60*60*24*180 + ';path=/';
-    router.push({ name: 'Result' });          // или router.push('/result')
+    router.push({ name: 'Result' });
   }
 }
-
 
 // Yandex.Metrika goals
 function clickQuiz() {
@@ -432,14 +471,6 @@ function clickPhone() {
   }
 }
 
-// Submission guards
-const showNotEnough = ref(false);
-const alreadySent   = ref(false);
-
-// "Получить решение"
-
-
-
 // Smooth scroll
 function scrollToForm() {
   document.getElementById('quiz-form')?.scrollIntoView({ behavior: 'smooth' });
@@ -450,9 +481,20 @@ function closeConsultation() {
   showConsultation.value = false;
 }
 
+// Загрузка отзывов с сервера (если нужно)
+async function loadReviews() {
+  try {
+    const response = await fetch('/api/reviews');
+    const data = await response.json();
+    reviews.value = data;
+  } catch (error) {
+    console.error('Error loading reviews:', error);
+  }
+}
+
 // "Отправить и получить инструкцию"
 function onSubmitConsult() {
-  window.ym && ym(103405057, 'reachGoal', 'send_form');
+  window.ym && window.ym(103405057, 'reachGoal', 'send_form');
 
   if (document.cookie.includes('consultSent=true')) {
     showAlreadySentModal.value = true;
@@ -462,52 +504,10 @@ function onSubmitConsult() {
   const data = new FormData();
   data.append('phone', consultPhone.value);
 
-
-// Client reviews
-  const reviews = ref([
-    {
-      avatar: '/img/VictorDolg.jpg',
-      name: 'Машукова Ирина Александровна',
-      date: '20 апреля 2024',
-      text: 'Сумма долга: 1 016 868 руб.',
-      // docLink: '/docs/Victor.pdf',
-    },
-    {
-      avatar: '/img/Aleksandr.jpg',
-      name: 'Еникеев Александр Александрович',
-      date: '15 мая 2025',
-      text: 'Сумма долга: 349 407 руб.',
-      // docLink: '/docs/Aleksandr.pdf',
-    },
-    {
-      avatar: '/img/Vladimir.jpg',
-      name: 'Барашков Валентин Савин',
-      date: '10 июня 2023',
-      text: 'Сумма долга: 1 565 017 руб.',
-      // docLink: '/docs/Vladimir.pdf',
-    },
-    {
-      avatar: '/img/Nadezhda.jpg',
-      name: 'Шадрина Анна Ивановна',
-      date: '20 марта 2024',
-      text: 'Сумма долга: 666 506 руб.',
-      // docLink: '/docs/Nadezhda.pdf',
-    },
-    {
-      avatar: '/img/Natalia.jpg',
-      name: 'Сягина Наталья Витальевна',
-      date: '15 мая 2022',
-      text: 'Сумма долга: 2 301 493 руб.',
-      // docLink: '/docs/Natalia.pdf',
-    },
-    {
-      avatar: '/img/Drit-ian.jpg',
-      name: 'Малов Дмитрий Вячеславович',
-      date: '10 мая 2025',
-      text: 'Сумма долга: 5 632 460 руб.',
-      // docLink: '/docs/Ian.pdf',
-    },
-  ]);
+  // здесь ваша логика отправки формы консультации
+  // после успешной отправки:
+  document.cookie = 'consultSent=true;max-age=' + 60*60*24*30 + ';path=/';
+  showAlreadySentModal.value = true;
 }
 </script>
 

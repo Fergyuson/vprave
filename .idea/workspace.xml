@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a3fe10f9-d9f1-48a1-9eba-5a627740867c" name="Changes" comment="настроили интеграцию с битриксом, добавили цели, убрали фетч запросы">
+    <list default="true" id="a3fe10f9-d9f1-48a1-9eba-5a627740867c" name="Changes" comment="поменяли номер телефона на странице result">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Result.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Result.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/LandingPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/LandingPage.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +126,7 @@
       <workItem from="1753104476874" duration="6186000" />
       <workItem from="1753130759750" duration="1244000" />
       <workItem from="1753135052838" duration="3345000" />
-      <workItem from="1753175227491" duration="655000" />
+      <workItem from="1753175227491" duration="4480000" />
     </task>
     <task id="LOCAL-00001" summary="Добавили раздел с отзывами клиентов">
       <option name="closed" value="true" />
@@ -334,7 +336,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753175549492</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="поменяли номер телефона на странице result">
+      <option name="closed" value="true" />
+      <created>1753175935686</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1753175935686</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -376,6 +386,7 @@
     <MESSAGE value="Иниуиализировали проект" />
     <MESSAGE value="поправили расположение кнопки консультации, поменяли данные в политике" />
     <MESSAGE value="настроили интеграцию с битриксом, добавили цели, убрали фетч запросы" />
-    <option name="LAST_COMMIT_MESSAGE" value="настроили интеграцию с битриксом, добавили цели, убрали фетч запросы" />
+    <MESSAGE value="поменяли номер телефона на странице result" />
+    <option name="LAST_COMMIT_MESSAGE" value="поменяли номер телефона на странице result" />
   </component>
 </project>
