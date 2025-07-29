@@ -1,5 +1,5 @@
 FROM python:3.11-slim
-ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
 # Системные зависимости
@@ -11,16 +11,17 @@ RUN apt-get update \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt uvicorn[standard]
 
-# Копируем весь код бэкенда (main.py, src/, etc)
+# Копируем код бэкенда
 COPY . .
 
-# Пробрасываем порт из билд-арга
-ARG BACKEND_PORT=4014
-ENV BACKEND_PORT=${BACKEND_PORT}
-EXPOSE ${BACKEND_PORT}
+# Создаем папки для статики
+RUN mkdir -p static/assets static/docs
 
-# PYTHONPATH, чтобы модули src.* импортировались
+# Пробрасываем порт
+EXPOSE 4014
+
+# PYTHONPATH для модулей
 ENV PYTHONPATH=/app
 
-# Запуск Uvicorn
-CMD uvicorn main:app --host 0.0.0.0 --port $BACKEND_PORT
+# Запуск
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "4014"]

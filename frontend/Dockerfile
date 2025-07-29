@@ -1,30 +1,17 @@
-# -------------------------------
-# Этап 1: сборка Vue-приложения
-# -------------------------------
-FROM node:18-alpine AS builder
+FROM node:18-alpine
 
 WORKDIR /app
 
-# Копируем манифест и устанавливаем зависимости
-COPY package.json package-lock.json ./
-
-# Устанавливаем зависимости
+# Копируем package.json и устанавливаем зависимости
+COPY package*.json ./
 RUN npm ci --silent --no-audit --no-fund
 
-# Копируем весь код и собираем production-бандл
+# Копируем код и собираем
 COPY . .
 RUN npm run build
 
-# -------------------------------
-# Этап 2: копирование в volume
-# -------------------------------
-FROM alpine:latest
-
-# Создаем папку для копирования
-RUN mkdir -p /static
-
-# Копируем результат сборки
-COPY --from=builder /app/dist /static
+# Создаем volume для копирования результата
+VOLUME /app/dist
 
 # Команда для копирования в volume
-CMD ["sh", "-c", "cp -r /static/* /app/static/ && echo 'Frontend files copied successfully'"]
+CMD ["sh", "-c", "cp -r /app/dist/* /static/ && echo 'Frontend built successfully'"]

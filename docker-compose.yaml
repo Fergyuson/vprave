@@ -1,18 +1,21 @@
+version: '3.8'
+
 services:
   frontend-builder:
-    container_name: vprave-frontend-builder
     build:
       context: ./frontend
       dockerfile: Dockerfile
     volumes:
-      - ./frontend/dist:/app/static
-    command: sh -c "cp -r /static/* /app/static/ && echo 'Frontend built and copied'"
+      - ./frontend/dist:/static
+    profiles:
+      - build
+    command: sh -c "cp -r /app/dist/* /static/ && echo 'Frontend built and copied'"
 
   app:
-    container_name: vprave-app
     build:
       context: ./backend
       dockerfile: Dockerfile
+    container_name: vprave-app
     volumes:
       - ./backend/logs:/app/logs
       - ./frontend/dist:/app/static
