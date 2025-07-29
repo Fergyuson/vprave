@@ -1,4 +1,7 @@
 import os
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv())
+
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, APIRouter, Request
 from fastapi.exceptions import RequestValidationError
@@ -113,7 +116,7 @@ async def spa_handler(request: Request, full_path: str):
         file_path = f"static/{full_path}"
         if os.path.exists(file_path):
             return FileResponse(file_path)
-    
+
     # Для всех остальных роутов отдаем index.html (SPA)
     return FileResponse("static/index.html")
 

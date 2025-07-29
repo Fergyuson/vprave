@@ -4,10 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a3fe10f9-d9f1-48a1-9eba-5a627740867c" name="Changes" comment="поменяли номер телефона на странице result">
+    <list default="true" id="a3fe10f9-d9f1-48a1-9eba-5a627740867c" name="Changes" comment="fix: configured connection with the SRM server">
+      <change afterPath="$PROJECT_DIR$/backend/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/api/leads.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/bitrix_integration.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vprave.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vprave.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/api/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/api/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/api/send/router.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/api/send/router.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/bitrix_integration.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/js/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/LandingPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/LandingPage.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,33 +62,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/magic/WebstormProjects/vprave&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\magic\\AppData\\Local\\Programs\\WebStorm\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/magic/WebstormProjects/vprave",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "web-ide.project.structure",
+    "ts.external.directory.path": "C:\\Users\\magic\\AppData\\Local\\Programs\\WebStorm\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;ChangesTree.GroupingKeys&quot;: [
-      &quot;repository&quot;
+  "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "repository"
     ],
-    &quot;vue.recent.templates&quot;: [
-      &quot;Vue Composition API Component&quot;
+    "vue.recent.templates": [
+      "Vue Composition API Component"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\magic\WebstormProjects\vprave\frontend\src" />
       <recent name="C:\Users\magic\WebstormProjects\vprave\frontend\src\components" />
     </key>
   </component>
@@ -126,7 +138,14 @@
       <workItem from="1753104476874" duration="6186000" />
       <workItem from="1753130759750" duration="1244000" />
       <workItem from="1753135052838" duration="3345000" />
-      <workItem from="1753175227491" duration="4480000" />
+      <workItem from="1753175227491" duration="8524000" />
+      <workItem from="1753270443298" duration="4223000" />
+      <workItem from="1753703005007" duration="1163000" />
+      <workItem from="1753704194476" duration="1611000" />
+      <workItem from="1753708870414" duration="32000" />
+      <workItem from="1753709189549" duration="936000" />
+      <workItem from="1753719355921" duration="7000" />
+      <workItem from="1753782791400" duration="13257000" />
     </task>
     <task id="LOCAL-00001" summary="Добавили раздел с отзывами клиентов">
       <option name="closed" value="true" />
@@ -344,7 +363,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753175935686</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="fix: fixed swiper played">
+      <option name="closed" value="true" />
+      <created>1753183682524</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1753183682524</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -362,8 +389,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Добавили раздел с отзывами клиентов" />
-    <MESSAGE value="добавили метрику" />
     <MESSAGE value="Добавили страницу перехода после отправки формы" />
     <MESSAGE value="Добавили картинки, обновили packege.json" />
     <MESSAGE value="Изменили вторую страницу, исправили работу свайпера, сделали кнопку слайд плавной" />
@@ -387,6 +412,8 @@
     <MESSAGE value="поправили расположение кнопки консультации, поменяли данные в политике" />
     <MESSAGE value="настроили интеграцию с битриксом, добавили цели, убрали фетч запросы" />
     <MESSAGE value="поменяли номер телефона на странице result" />
-    <option name="LAST_COMMIT_MESSAGE" value="поменяли номер телефона на странице result" />
+    <MESSAGE value="fix: fixed swiper played" />
+    <MESSAGE value="fix: configured connection with the SRM server" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: configured connection with the SRM server" />
   </component>
 </project>

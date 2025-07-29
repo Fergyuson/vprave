@@ -1,10 +1,12 @@
 /*! For license information please see common.js.LICENSE.txt */
+/*!
 declare global{
     interface Window{
         ym: any;
         metrikaId: number;
     }
 }
+*/
 
 !function () {
     var e = {

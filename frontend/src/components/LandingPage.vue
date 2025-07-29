@@ -148,6 +148,7 @@
             Извините, но мы не работаем с долгом ниже 300 т.р.
           </div>
         </form>
+
         <div class="privacy-text">
           Данные не передаются третьим лицам
           <svg
@@ -162,6 +163,11 @@
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
           </svg>
+        </div>
+        <div class="Privacy-Policy">
+          <router-link to="/privacy-policy" class="privacy-link">
+            Политика обработки персональных данных
+          </router-link>
         </div>
         <span class="span-on-footer">
           <p class="cli-block-description">
@@ -228,16 +234,9 @@
         </div>
       </div>
     </footer>
-    <div class="Privacy-Policy">
-      <router-link to="/privacy-policy">
-        Политика обработки персональных данных
-      </router-link>
-    </div>
 
-    <!-- Craftum Watermark -->
     <div class="craftum-label" v-html="craftumSvg"></div>
 
-    <!-- POPUP: уже отправили заявку -->
     <div class="modal sendFormPopup" :class="{ active: alreadySent }">
       <div class="modal-window">
         <button class="modal-close" @click="alreadySent = false">×</button>
@@ -247,7 +246,6 @@
       </div>
     </div>
 
-    <!-- MODAL: Консультация -->
     <transition name="fade">
       <div
           class="modal-overlay"
@@ -257,7 +255,7 @@
         <button class="modal-close" @click="closeConsultation"></button>
         <div class="modal-window">
           <div class="modal-title">
-            <!-- Если пользователь ещё не отправил форму, показываем форму -->
+
             <template v-if="!showAlreadySentModal">
               Введите номер для бесплатной консультации
               <form @submit.prevent="onSubmitConsult">
@@ -287,7 +285,6 @@
               </form>
             </template>
 
-            <!-- Если уже отправлено или только что отправили, показываем сообщение -->
             <template v-else>
               <div class="consult-thanks">
                 <h3>Заявка принята</h3>
@@ -310,15 +307,13 @@ import { Pagination, Autoplay } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { checkPhoneExists, sendLeadToBitrix } from '../bitrix_integration.js';
 
 const router = useRouter();
 const showAlreadySentModal = ref(false);
-const alreadySent = ref(false); // ДОБАВЛЕНО: отсутствовало в коде
-
-// Swiper modules - ДОБАВЛЕНО: отсутствовало в коде
+const alreadySent = ref(false);
 const swiperModules = [Pagination, Autoplay];
 
-// Client reviews - ИСПРАВЛЕНО: вынесено из функции
 const reviews = ref([
   {
     avatar: '/img/VictorDolg.jpg',
@@ -431,39 +426,44 @@ function selectQuiz1(value) {
     window.ym(103405057, 'reachGoal', 'first_click', { option: value });
   }
 }
+const showNotEnough = ref(false);
 
-async function submitForm() {
-  // валидация телефона
-  if (!phoneNumber.value || !/^\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}$/.test(phoneNumber.value)) {
-    alert('Введите корректный телефон');
-    return;
+async function submitForm () {
+  form.phone = phoneNumber.value.replace(/\D/g, '')
+
+  if (form.phone.length < 10) {
+    showNotEnough.value = true
+    return
   }
 
-  // блокируем повторную отправку
-  if (document.cookie.includes('sendForm=true')) {
-    alreadySent.value = true;
-    return;
+  const exists = await checkPhoneExists(form.phone)
+  if (exists) {
+    alreadySent.value = true
+    return
   }
 
-  // отправка лида и редирект
-  try {
-    await window.sendLeadToBitrix('', phoneNumber.value);
-  } catch (err) {
-    console.error('Bitrix24 error:', err);
-  } finally {
-    window.ym && window.ym(103405057, 'reachGoal', 'send_quiz');
-    document.cookie = 'sendForm=true;max-age=' + 60*60*24*180 + ';path=/';
-    router.push({ name: 'Result' });
-  }
+  await sendLeadToBitrix({
+    name:    form.name?.trim() || 'Гость сайта',
+    phone:   form.phone,
+    email:   form.email   || null,
+    comment: form.comment || null,
+    utm_source:  utm.source   || null,
+    utm_medium:  utm.medium   || null,
+    utm_campaign:utm.campaign || null,
+    utm_term:    utm.term     || null,
+    utm_content: utm.content  || null,
+  })
+
+  router.push({ name: 'Result' })
 }
 
-// Yandex.Metrika goals
 function clickQuiz() {
   if (!clickQuiz.done && window.ym) {
     window.ym(window.metrikaId, 'reachGoal', 'click_quiz');
     clickQuiz.done = true;
   }
 }
+
 function clickPhone() {
   if (!clickPhone.done && window.ym) {
     window.ym(window.metrikaId, 'reachGoal', 'click_phone_linck');
@@ -471,17 +471,14 @@ function clickPhone() {
   }
 }
 
-// Smooth scroll
 function scrollToForm() {
   document.getElementById('quiz-form')?.scrollIntoView({ behavior: 'smooth' });
 }
 
-// Consultation modal
 function closeConsultation() {
   showConsultation.value = false;
 }
 
-// Загрузка отзывов с сервера (если нужно)
 async function loadReviews() {
   try {
     const response = await fetch('/api/reviews');
@@ -492,7 +489,6 @@ async function loadReviews() {
   }
 }
 
-// "Отправить и получить инструкцию"
 function onSubmitConsult() {
   window.ym && window.ym(103405057, 'reachGoal', 'send_form');
 
@@ -504,8 +500,6 @@ function onSubmitConsult() {
   const data = new FormData();
   data.append('phone', consultPhone.value);
 
-  // здесь ваша логика отправки формы консультации
-  // после успешной отправки:
   document.cookie = 'consultSent=true;max-age=' + 60*60*24*30 + ';path=/';
   showAlreadySentModal.value = true;
 }
@@ -838,7 +832,7 @@ body {
 }
 .reviews-swiper {
   position: relative;
-  padding-bottom: 3rem; /* место для пагинации */
+  padding-bottom: 3rem;
   overflow: hidden;
 }
 .review-slide {
@@ -899,7 +893,6 @@ body {
   color: #5a52e6;
 }
 
-/* Кнопки навигации Swiper: окружности с Unicode-стрелками */
 .swiper-button-prev,
 .swiper-button-next {
   position: absolute;
@@ -921,7 +914,7 @@ body {
 .swiper-button-next {
   right: 0.5rem;
 }
-/* Добавляем стрелки через псевдоэлемент ::after */
+
 .swiper-button-prev::after {
   content: '◀';
   font-size: 20px;
@@ -933,7 +926,6 @@ body {
   color: white;
 }
 
-/* Стили для пагинации (точек) */
 .reviews-swiper .swiper-pagination {
   bottom: 0;
 }
@@ -959,14 +951,13 @@ body {
   gap: 2rem;
   width:  100%;
 }
-/* вместо ".footer .cli-footer-logo img" */
+
 .footer_r {
   text-align: right;
   font-size: var(--text-size-small);
   line-height: 1.4;
 }
 
-/* Flex внутри левого столбца: картинка + текст */
 .cli-footer-logo {
   display: flex;
   align-items: center;
@@ -979,22 +970,19 @@ body {
   object-fit: contain;
 }
 
-/*.cli-footer-logo__text h4 {
-  margin: 0;
-  line-height: 1.2;
+.Privacy-Policy {
+  text-align: center;
+  margin: 0.7rem 0;
 }
 
-.cli-footer-logo__text a {
-  display: block;
-  margin-top: 0.3rem;
+.Privacy-Policy .privacy-link {
+  text-decoration: underline;
   color: inherit;
-  text-decoration: none;
-  font-size: var(--text-size-small);
-}*/
-.Privacy-Policy{
-  text-align: center;
-  padding: 20px 0;
-  background: #f8f8f8;
+  transition: color 0.2s;
+}
+
+.Privacy-Policy .privacy-link:hover {
+  color: #007BFF;
 }
 .craftum-label {
   position: fixed;
@@ -1080,12 +1068,9 @@ body {
   font-weight: 550;
 }
 .privacy-text__icon {
-  /* размер иконки */
   width: 1em;
   height: 1em;
-  /* немного отступа слева (или справа) */
   margin-left: 0.3em;
-  /* гарантируем, что svg внутри flex-элемента тожеCenter */
   vertical-align: middle;
 }
 
@@ -1117,7 +1102,6 @@ body {
   color: #333;
 }
 
-/* Плавное появление/скрытие */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s;

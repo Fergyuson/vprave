@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
-from src.api.send.routers import send
+router = APIRouter(prefix="/send", tags=["send"])
 
-router = APIRouter()
-router.include_router(send.router)
+@router.get("/health")
+async def health():
+    return {"status": "ok"}
