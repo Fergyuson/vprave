@@ -7,7 +7,7 @@ from email.message import EmailMessage
 from ..core.config import settings
 from .schemas import LeadIn, LeadOut
 
-router = APIRouter(prefix="/leads", tags=["leads"])
+router = APIRouter(tags=["leads"])
 
 def get_b24_url() -> str:
     url = settings.bitrix24.webhook_url
