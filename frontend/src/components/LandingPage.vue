@@ -371,6 +371,15 @@ function getParam(name) {
 }
 
 onMounted(() => {
+  // UTM tracking code
+  ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function(name){
+    var val = (new URLSearchParams(window.location.search)).get(name);
+    if(val) document.cookie = name + '=' + encodeURIComponent(val) + ';Path=/;Max-Age=7776000;SameSite=Lax';
+  });
+  // timestamp
+  document.cookie = 'utm_timestamp=' + encodeURIComponent(new Date().toISOString()) + ';Path=/;Max-Age=7776000;SameSite=Lax';
+  
+  // Set UTM values for form
   ['source','medium','campaign','content','term'].forEach(k => {
     utm[k] = getParam(`utm_${k}`) || '';
   });
