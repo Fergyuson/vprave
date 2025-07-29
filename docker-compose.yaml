@@ -7,8 +7,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./frontend/dist:/static
-    profiles:
-      - build
     command: sh -c "cp -r /app/dist/* /static/ && echo 'Frontend built and copied'"
 
   app:
