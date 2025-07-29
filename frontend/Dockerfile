@@ -8,28 +8,23 @@ WORKDIR /app
 # Копируем манифест и устанавливаем зависимости
 COPY package.json package-lock.json ./
 
-# Очищаем кэш npm и переустанавливаем зависимости
-RUN npm cache clean --force && \
-    rm -rf node_modules package-lock.json && \
-    npm install
+# Устанавливаем зависимости
+RUN npm ci --silent --no-audit --no-fund
 
 # Копируем весь код и собираем production-бандл
 COPY . .
 RUN npm run build
 
 # -------------------------------
-# Этап 2: отдача статики через Nginx
+# Этап 2: копирование в volume
 # -------------------------------
-FROM nginx:stable-alpine
+FROM alpine:latest
 
-# Очищаем дефолтную статику
-RUN rm -rf /usr/share/nginx/html/*
+# Создаем папку для копирования
+RUN mkdir -p /static
 
 # Копируем результат сборки
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist /static
 
-# (Опционально) свой конфиг nginx:
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 3000
-CMD ["nginx", "-g", "daemon off;"]
+# Команда для копирования в volume
+CMD ["sh", "-c", "cp -r /static/* /app/static/ && echo 'Frontend files copied successfully'"]

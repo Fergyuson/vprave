@@ -1,6 +1,15 @@
 services:
+  frontend-builder:
+    container_name: vprave-frontend-builder
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend/dist:/app/static
+    command: sh -c "cp -r /static/* /app/static/ && echo 'Frontend built and copied'"
+
   app:
-    container_name: uksolution-app
+    container_name: vprave-app
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -13,8 +22,8 @@ services:
       - "127.0.0.1:4014:4014"
     restart: unless-stopped
     networks:
-      - uksolution-net
+      - vprave-net
 
 networks:
-  uksolution-net:
+  vprave-net:
     driver: bridge

@@ -77,7 +77,7 @@ root.addHandler(stream_handler)
 root.addHandler(file_handler)
 
 # ваш именованный логгер может наследовать хендлеры
-app_logger = logging.getLogger(settings.app_name)
+app_logger = logging.getLogger(settings.project.name)
 app_logger.propagate = True
 
 
