@@ -421,14 +421,35 @@ const utpItems = [
 ];
 const craftumSvg = `<svg width="20" height="20" viewBox="0 0 20 20"><!-- … --></svg>`;
 
+const metrikaId = 103405057;
+window.metrikaId = metrikaId;
+
 function selectQuiz1(value) {
   if (window.ym) {
-    window.ym(103405057, 'reachGoal', 'first_click', { option: value });
+    window.ym(metrikaId, 'reachGoal', 'first_click', { option: value });
   }
 }
+
+function clickQuiz() {
+  if (!clickQuiz.done && window.ym) {
+    window.ym(window.metrikaId, 'reachGoal', 'click_quiz');
+    clickQuiz.done = true;
+  }
+}
+
+function clickPhone() {
+  if (!clickPhone.done && window.ym) {
+    window.ym(window.metrikaId, 'reachGoal', 'click_phone_link');
+    clickPhone.done = true;
+  }
+}
+
 const showNotEnough = ref(false);
 
 async function submitForm () {
+  if (window.ym) {
+    window.ym(metrikaId, 'reachGoal', 'submit_quiz_form');
+  }
   form.phone = phoneNumber.value.replace(/\D/g, '')
 
   if (form.phone.length < 10) {
@@ -457,20 +478,6 @@ async function submitForm () {
   router.push({ name: 'Result' })
 }
 
-function clickQuiz() {
-  if (!clickQuiz.done && window.ym) {
-    window.ym(window.metrikaId, 'reachGoal', 'click_quiz');
-    clickQuiz.done = true;
-  }
-}
-
-function clickPhone() {
-  if (!clickPhone.done && window.ym) {
-    window.ym(window.metrikaId, 'reachGoal', 'click_phone_linck');
-    clickPhone.done = true;
-  }
-}
-
 function scrollToForm() {
   document.getElementById('quiz-form')?.scrollIntoView({ behavior: 'smooth' });
 }
@@ -490,7 +497,7 @@ async function loadReviews() {
 }
 
 function onSubmitConsult() {
-  window.ym && window.ym(103405057, 'reachGoal', 'send_form');
+  window.ym && window.ym(metrikaId, 'reachGoal', 'send_form');
 
   if (document.cookie.includes('consultSent=true')) {
     showAlreadySentModal.value = true;
