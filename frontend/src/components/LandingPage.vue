@@ -362,6 +362,22 @@ const utm = reactive({
   term: ''
 });
 
+// Функция для парсинга UTM-меток из URL и сохранения в cookies
+function parseAndSaveUTM() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const utmParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+  
+  utmParams.forEach(param => {
+    const value = urlParams.get(param);
+    if (value) {
+      document.cookie = `${param}=${encodeURIComponent(value)};Path=/;Max-Age=7776000;SameSite=Lax`;
+    }
+  });
+  
+  // Сохраняем timestamp посещения
+  document.cookie = `utm_timestamp=${encodeURIComponent(new Date().toISOString())};Path=/;Max-Age=7776000;SameSite=Lax`;
+}
+
 function getParam(name) {
   const p = new URLSearchParams(location.search).get(name);
   if (p) {
@@ -371,6 +387,10 @@ function getParam(name) {
 }
 
 onMounted(() => {
+  // Парсим и сохраняем UTM-метки из URL
+  parseAndSaveUTM();
+  
+  // Загружаем UTM-метки в форму
   ['source','medium','campaign','content','term'].forEach(k => {
     utm[k] = getParam(`utm_${k}`) || '';
   });

@@ -28,7 +28,7 @@ async def lifespan(app: FastAPI):
 # Основной объект приложения
 # ────────────────────────────────────────
 app = FastAPI(
-    title=settings.app_name,
+    title=settings.project.name,
     lifespan=lifespan,
     docs_url="/api/docs",
     redoc_url=None,

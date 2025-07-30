@@ -1,53 +1,21 @@
 from fastapi import APIRouter, HTTPException, Request
-from pydantic import BaseModel, EmailStr, field_validator
 import os, ssl, json
 import httpx
 import aiosmtplib
 import urllib.parse
 from email.message import EmailMessage
+from ..core.config import settings
+from .schemas import LeadIn, LeadOut
 
-router = APIRouter(prefix="/leads", tags=["leads"])
+router = APIRouter(tags=["leads"])
 
 def get_b24_url() -> str:
-    url = os.getenv("BITRIX_WEBHOOK_URL")
+    url = settings.bitrix24.webhook_url
     if not url:
         raise RuntimeError("Переменная BITRIX_WEBHOOK_URL не установлена")
     return url
 
-PROJECT_NAME       = os.getenv("PROJECT_NAME", "DevService — лендинг заявок")
-
-SMTP_HOST     = os.getenv("SMTP_HOST", "smtp.mailgun.org")
-SMTP_PORT     = int(os.getenv("SMTP_PORT", "587"))
-SMTP_USERNAME = os.getenv("SMTP_USERNAME", "")
-SMTP_PASSWORD = os.getenv("SMTP_PASSWORD", "")
-SMTP_IMPLICIT = os.getenv("SMTP_USE_IMPLICIT_TLS", "false").lower() == "true"  # true→465, false→587 STARTTLS
-
-MAIL_FROM = os.getenv("MAIL_FROM", "leads@e-devservice.ru")
-MAIL_TO   = os.getenv("MAIL_TO",   "leads-control@e-devservice.ru")
-MAIL_BCC  = [e.strip() for e in os.getenv("MAIL_BCC", "cto@e-devservice.ru,owner@e-devservice.ru").split(",") if e.strip()]
-
-class LeadIn(BaseModel):
-    name: str
-    phone: str
-    email: EmailStr | None = None
-    comment: str | None = None
-    utm_source: str | None = None
-    utm_medium: str | None = None
-    utm_campaign: str | None = None
-    utm_term: str | None = None
-    utm_content: str | None = None
-
-    @field_validator("phone")
-    @classmethod
-    def normalize_phone(cls, v: str) -> str:
-        digits = "".join(ch for ch in v if ch.isdigit())
-        if digits.startswith("8"):
-            digits = "7" + digits[1:]
-        if len(digits) < 10:
-            raise ValueError("Некорректный номер телефона")
-        return digits
-
-@router.post("", summary="Создать лид в Bitrix24 и отправить письмо-дубликат")
+@router.post("", summary="Создать лид в Bitrix24 и отправить письмо-дубликат", response_model=LeadOut)
 async def create_lead(lead: LeadIn, request: Request):
     b24_url = get_b24_url()
     import logging
@@ -56,7 +24,7 @@ async def create_lead(lead: LeadIn, request: Request):
     # 1) Bitrix24
     b24_payload = {
         "fields": {
-            "TITLE": f"{PROJECT_NAME}: заявка от {lead.name}",
+            "TITLE": f"{settings.project.name}: заявка от {lead.name}",
             "NAME": lead.name,
             "PHONE": [{"VALUE": lead.phone, "VALUE_TYPE": "WORK"}],
             "EMAIL": [{"VALUE": str(lead.email or ""), "VALUE_TYPE": "WORK"}],
@@ -80,9 +48,9 @@ async def create_lead(lead: LeadIn, request: Request):
         lead_id = data.get("result")
 
     # 2) Письмо
-    subject = f"[{PROJECT_NAME}] Новая заявка (лид #{lead_id})"
+    subject = f"[{settings.project.name}] Новая заявка (лид #{lead_id})"
     lines = [
-        f"Проект: {PROJECT_NAME}",
+        f"Проект: {settings.project.name}",
         f"Лид #{lead_id}",
         f"Имя: {lead.name}",
         f"Телефон: +{lead.phone}",
@@ -100,33 +68,33 @@ async def create_lead(lead: LeadIn, request: Request):
     ]
     msg = EmailMessage()
     msg["Subject"] = subject
-    msg["From"] = MAIL_FROM
-    msg["To"] = MAIL_TO
-    if MAIL_BCC:
-        msg["Bcc"] = ", ".join(MAIL_BCC)
+    msg["From"] = settings.mail.from_address
+    msg["To"] = settings.mail.to_address
+    if settings.mail.bcc_addresses:
+        msg["Bcc"] = ", ".join(settings.mail.bcc_addresses)
     msg.set_content("\n".join(lines))
 
     ctx = ssl.create_default_context()
     email_sent = False
     try:
-        if SMTP_IMPLICIT:                       # SMTPS 465
+        if settings.smtp.use_implicit_tls:           # SMTPS 465
             await aiosmtplib.send(
                 msg,
-                hostname=SMTP_HOST,
-                port=SMTP_PORT or 465,
-                username=SMTP_USERNAME or None,
-                password=SMTP_PASSWORD or None,
+                hostname=settings.smtp.host,
+                port=settings.smtp.port or 465,
+                username=settings.smtp.username or None,
+                password=settings.smtp.password or None,
                 use_tls=True,
                 tls_context=ctx,
                 timeout=10,
             )
-        else:                                   # Submission 587 + STARTTLS
+        else:                                       # Submission 587 + STARTTLS
             await aiosmtplib.send(
                 msg,
-                hostname=SMTP_HOST,
-                port=SMTP_PORT or 587,
-                username=SMTP_USERNAME or None,
-                password=SMTP_PASSWORD or None,
+                hostname=settings.smtp.host,
+                port=settings.smtp.port or 587,
+                username=settings.smtp.username or None,
+                password=settings.smtp.password or None,
                 start_tls=True,
                 tls_context=ctx,
                 timeout=10,
@@ -137,5 +105,4 @@ async def create_lead(lead: LeadIn, request: Request):
         import logging
         logging.error("SMTP error: %s", e, exc_info=True)
 
-    # ← все отступы вернулись на уровень функции
-    return {"lead_id": lead_id, "email_sent": email_sent}
+    return LeadOut(lead_id=lead_id, email_sent=email_sent)
